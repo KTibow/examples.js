@@ -1,15 +1,13 @@
-window.examples = {};
-class TemplateExample extends HTMLTemplateElement {
+class TemplateExample extends HTMLElement {
   connectedCallback() {
     // Store the content of me and hide myself.
     const name = this.getAttribute("element-name");
-    window.examples[name] = this.innerHTML;
+    const content = this.innerHTML;
     this.style.display = "none";
     // Declare the element.
     const customElement = class extends HTMLElement {
       connectedCallback() {
         // Gather templating info.
-        const content = window.examples[name];
         const attributeDict = {};
         for (let attribute of this.attributes) {
           const name = attribute.name;
@@ -33,4 +31,4 @@ class TemplateExample extends HTMLTemplateElement {
     customElements.define(name, customElement);
   }
 }
-customElements.define("template-example", TemplateExample, { extends: "template" });
+customElements.define("template-example", TemplateExample);
