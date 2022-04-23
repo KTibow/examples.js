@@ -8,23 +8,14 @@ class TemplateExample extends HTMLElement {
     const customElement = class extends HTMLElement {
       connectedCallback() {
         // Gather templating info.
-        const attributeDict = {};
-        for (let attribute of this.attributes) {
-          const name = attribute.name;
-          let value = attribute.value;
-          if (!name.includes("array")) {
-            attributeDict[name] = value;
-          } else {
-            // Allow arrays being made from multiple attributes.
-            const arrayName = name.split("-")[0];
-            if (!attributeDict[arrayName]) {
-              attributeDict[arrayName] = [];
-            }
-            attributeDict[arrayName].push(value);
-          }
+        let templateData = {};
+        try {
+          templateData = JSON5.parse(this.innerHTML);
+        } catch (e) {
+          console.error(e);
         }
         // I mustache you a question.
-        const html = Mustache.render(content, attributeDict);
+        const html = Mustache.render(content, templateData);
         this.outerHTML = html;
       }
     };
