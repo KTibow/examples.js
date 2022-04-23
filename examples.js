@@ -8,11 +8,15 @@ class TemplateExample extends HTMLElement {
     const customElement = class extends HTMLElement {
       connectedCallback() {
         // Gather templating info.
-        let templateData = {};
-        try {
-          templateData = JSON5.parse(this.innerHTML);
-        } catch (e) {
-          console.error(e);
+        const templateData = {};
+        for (let attribute of this.attributes) {
+          const name = attribute.name;
+          let value = attribute.value;
+          try {
+            templateData[name] = JSON5.parse(value);
+          } catch (e) {
+            templateData[name] = value;
+          }
         }
         // I mustache you a question.
         const html = Mustache.render(content, templateData);

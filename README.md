@@ -12,12 +12,14 @@ fill them with [Mustache](https://mustache.github.io/mustache.5.html).
         {{/items}}
     </ul>
 </template-example>
-<download-option>
-    {
-        name: "Windows",
-        image: "assets/windows.png",
-        items: ["Not made by me", "Made with C#", "Requires Windows"]
-    }
+<download-option
+    name="Windows"
+    image="assets/windows.png"
+    items="[
+        'Not made by me',
+        'Made with C#',
+        'Requires Windows'
+    ]">
 </download-option>
 <script src="https://unpkg.com/json5@^2.0.0/dist/index.min.js"></script>
 <script src="https://unpkg.com/mustache@^4.2.0/mustache.min.js"></script>
